@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     document.write("userLanguage: " + navigator.language + "<br><br>");
 
-    document.write("navigator: " + navigator + "<br><br>");
+    document.write("navigator: " + JSON.stringify(navigator) + "<br><br>");
 
 
 })
