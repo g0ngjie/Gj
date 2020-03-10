@@ -20,7 +20,13 @@ $(document).ready(function () {
 
     document.write("userLanguage: " + navigator.language + "<br><br>");
 
-    document.write("navigator: " + JSON.stringify(navigator) + "<br><br>");
+
+    document.write("plugins.description: " + navigator + '' + "<br><br>");
+    
+    document.write("plugins.description: " + navigator.plugins + "<br><br>");
+    
+    document.write("mimeTypes: " + navigator.mimeTypes + "<br><br>");
+
 
 
 })
