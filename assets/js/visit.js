@@ -20,6 +20,7 @@ $(document).ready(function () {
 
     document.write("userLanguage: " + navigator.language + "<br><br>");
 
+    console.log(navigator, 'navigator')
 
     document.write("plugins.description: " + navigator + '' + "<br><br>");
     
