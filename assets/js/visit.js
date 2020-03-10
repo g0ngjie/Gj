@@ -19,6 +19,7 @@ $(document).ready(function () {
         url: 'http://freegeoip.net/json/',
         success: function(data){
             console.log(data, 'data freegeoip')
+            alert(JSON.stringify(data))
         },
         type: 'GET',
         dataType: 'JSON'
