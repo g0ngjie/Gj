@@ -11,6 +11,7 @@ $(document).ready(function () {
             console.log(data, 'data')
             console.log(data.content.address_detail.province, 'data.content.address_detail.province')
             console.log(data.content.address_detail.city, 'data.content.address_detail.city')
+            alert(JSON.stringify(data))
         }
     });
 
