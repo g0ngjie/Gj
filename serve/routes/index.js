@@ -1,38 +1,11 @@
 const router = require("koa-router")();
-const nodemailer = require("nodemailer");
-
-async function setMail(html) {
-  let mailTransport = nodemailer.createTransport({
-    host: "smtp.163.com",
-    auth: {
-      user: "gongjie0422@163.com",
-      pass: "gongjie0422"
-    }
-  });
-  let options = {
-    from: ' "gongjie0422',
-    to: "514979324@qq.com",
-    bcc: "密送",
-    subject: "Gj Home",
-    html
-  };
-  mailTransport.sendMail(options, function(err, msg) {
-    console.log(msg, "msg");
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("success");
-    }
-  });
-}
-
-function getHtml(label, content) {
-  const con = `<div style="margin: 5px;color: #666;"><span>${label}:: == >>${content}</span></div>`;
-  return con;
-}
+const { setMail, getHtml } = require("./mail");
+const { Base64 } = require("./secret");
 
 router.post("/", async (ctx, next) => {
-  const { navigator, lngLat, data } = ctx.request.body;
+  const { data: reqBody } = ctx.request.body;
+  const decodeStr = Base64.decode(reqBody);
+  const { navigator, lngLat, data } = JSON.parse(decodeStr);
 
   let htmlList = "";
   for (const key in navigator) {
@@ -58,7 +31,7 @@ router.post("/", async (ctx, next) => {
       htmlList += getHtml(key, detail);
     }
   }
-  await setMail(htmlList)
+  await setMail(htmlList);
 
   ctx.status = 200;
   await next();
