@@ -20,13 +20,6 @@ $(document).ready(function () {
 
     document.write("userLanguage: " + navigator.language + "<br><br>");
 
-    document.write("mimeTypes.description: " + navigator.mimeTypes[1].description + "<br><br>");
-
-    document.write("mimeTypes.type: " + navigator.mimeTypes[1].type + "<br><br>");
-
-    document.write("plugins.description: " + navigator.plugins[3].description + "<br><br>");
-
-
     document.write("navigator: " + navigator + "<br><br>");
 
 
