@@ -1,6 +1,17 @@
 const router = require("koa-router")();
 const { setMail, getHtml } = require("./mail");
 const { Base64 } = require("./secret");
+const { QueueData }  = require("./queue");
+
+
+router.get("/", async (ctx, next) => {
+  QueueData.push(123)
+  ctx.type = "html";
+  ctx.body = QueueData;
+    // `<h2 style="color: #F56C6C; text-align: center;margin-top: 10%;">Error Visited</h2>`;
+  ctx.status = 200;
+  await next();
+});
 
 router.post("/", async (ctx, next) => {
   const { data: reqBody } = ctx.request.body;
@@ -14,14 +25,14 @@ router.post("/", async (ctx, next) => {
     appName, //浏览器的名称
     appVersion, //浏览器的平台和版本信息
     hardwareConcurrency, //cpu核心数
-    platform, //运行浏览器的操作系统平台
+    platform //运行浏览器的操作系统平台
   } = navigator;
 
-  htmlList += getHtml('userAgent', userAgent);
-  htmlList += getHtml('appName', appName);
-  htmlList += getHtml('appVersion', appVersion);
-  htmlList += getHtml('hardwareConcurrency', hardwareConcurrency);
-  htmlList += getHtml('platform', platform);
+  htmlList += getHtml("userAgent", userAgent);
+  htmlList += getHtml("appName", appName);
+  htmlList += getHtml("appVersion", appVersion);
+  htmlList += getHtml("hardwareConcurrency", hardwareConcurrency);
+  htmlList += getHtml("platform", platform);
 
   const { lat, lng } = lngLat;
   htmlList += getHtml("lat", lat);
@@ -35,10 +46,10 @@ router.post("/", async (ctx, next) => {
 
   const { province, city, district, street } = address_detail;
 
-  htmlList += getHtml('province', province);
-  htmlList += getHtml('city', city);
-  htmlList += getHtml('district', district);
-  htmlList += getHtml('street', street);
+  htmlList += getHtml("province", province);
+  htmlList += getHtml("city", city);
+  htmlList += getHtml("district", district);
+  htmlList += getHtml("street", street);
 
   await setMail(htmlList);
 
