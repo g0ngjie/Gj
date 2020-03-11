@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+</head>
+<style>
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        font-family: "Josefin Sans", "PingFang SC";
+        background: #fff;
+        color: #363636;
+        text-rendering: geometricPrecision;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
+    }
+
+    main {
+        max-width: 800px;
+        position: relative;
+        display: block;
+        margin: 2rem auto;
+    }
+
+    header {
+        text-align: center;
+    }
+
+    .title {
+        margin: 0;
+        padding: 4.3rem 2.15rem 2.15rem;
+    }
+
+    h1 {
+        font-size: 1.78571rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    article {
+        position: relative;
+        padding: 0.80625rem 2.15rem 2.15rem;
+    }
+
+    .content {
+        border-color: #e0e0e0;
+        word-wrap: break-word;
+        line-height: 1.8;
+    }
+
+    .highlight {
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        color: #373b41;
+        position: relative;
+        margin: 1em 0;
+    }
+
+    .highlight>div {
+        overflow-x: auto;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        font-size: inherit;
+    }
+
+    .highlight .gutter {
+        color: #b4b7b4;
+        user-select: none;
+    }
+
+    .highlight .gutter pre {
+        padding: 0.75rem 0.25rem 0.75rem 0.75rem;
+    }
+
+    td,
+    th {
+        padding: 0;
+    }
+
+    .highlight pre {
+        margin: 0;
+        border: 0;
+    }
+
+    .highlight figcaption,
+    code,
+    pre {
+        font-family: Fira Code, Consolas, monospace;
+    }
+
+    pre {
+        padding: 0.75rem 1rem;
+        line-height: 1.6;
+        border: 1px solid;
+        border-color: inherit;
+    }
+
+    code,
+    pre {
+        font-size: 85%;
+        -webkit-font-smoothing: initial;
+        -moz-osx-font-smoothing: initial;
+    }
+
+    .highlight .addition,
+    .highlight .bullet,
+    .highlight .string,
+    .highlight .symbol {
+        color: #198844;
+    }
+
+    .highlight .built_in,
+    .highlight .builtin-name,
+    .highlight .link,
+    .highlight .literal,
+    .highlight .meta,
+    .highlight .number,
+    .highlight .params,
+    .highlight .type {
+        color: #f96a38;
+    }
+</style>
+
+<body>
+    <main>
+        <header>
+            <h1 class="title">About Me</h1>
+        </header>
+        <article data-title="About Me">
+            <div class="content">
+                <figure class="highlight">
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="gutter">
+                                        <pre id="index"></pre>
+                                    </td>
+                                    <td class="code">
+                                        <pre id="description"></pre>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </figure>
+            </div>
+        </article>
+    </main>
+</body>
+
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const list = {
+            name: "Gj",
+            age: 30,
+            gender: "Boy",
+            profession: "Frontend Developer",
+            address: "Shanghai",
+            github: "https://github.com/g0ngjie",
+            blog: "https://www.cnblogs.com/ivday",
+            email: "g0ngjie@163.com",
+            description: "The end is always near.",
+
+            skills: [
+                ["Java", "Spring", "Python", "Linux", "SQL", "Node"],
+                ['Mysql', 'Redis', 'MongoDB', 'IndexedDB'],
+                ["SSH", "SSM", "Spring Boot", "Koa"],
+                ["Jenkins", "Docker"],
+                ["JavaScript", "JQuery", "HTML+CSS", 'Vue', "Bootstrap", 'Webpack', 'Gulp'],
+                ["Git", "SVN"]
+            ],
+
+            devTools: [
+                ["Eclipse & MyEclipse", "IDEA"],
+                ["Visual Studio Code", "NotePad++"],
+                ["Chrome DevTools"],
+                ["Navicat", "SQLyog", "Robo3T"]
+            ]
+        };
+        const count = 27;
+        let len = 1;
+        let indexNode = "";
+        while (len <= count) {
+            const _index = `<span class="line">${len}</span><br>`;
+            indexNode += _index;
+            len++;
+        }
+        $("#index").html(indexNode);
+        let codeNode = '<span class="line">{</span><br>';
+        for (const key in list) {
+            if (list.hasOwnProperty(key)) {
+                const _code = list[key];
+                if (_code.constructor == Number)
+                    codeNode += `<span class="line">  ${key}: <span class="number">${_code}</span>,</span><br>`;
+                if (_code.constructor == String)
+                    codeNode += `<span class="line">  ${key}: <span class="string">'${_code}'</span>,</span><br>`;
+                if (_code.constructor == Array) {
+                    codeNode += `<span class="line"></span><br><span class="line">  ${key}: [</span><br>`;
+                    _code.forEach(item => {
+                        codeNode += '<span class="line">    [';
+                        const listLen = item.length;
+                        item.forEach((line, i) => {
+                            codeNode += `<span class="string">'${line}'</span>`;
+                            if (i !== listLen - 1) {
+                                codeNode += ", ";
+                            }
+                        });
+                        codeNode += "]</span><br>";
+                    });
+                    codeNode += '<span class="line">  ],</span><br>';
+                }
+            }
+        }
+        codeNode += '<span class="line">}</span><br>';
+        $("#description").html(codeNode);
+    });
+</script>
+
+</html>
