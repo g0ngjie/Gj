@@ -8,12 +8,20 @@ router.post("/", async (ctx, next) => {
   const { navigator, lngLat, data } = JSON.parse(decodeStr);
 
   let htmlList = "";
-  for (const key in navigator) {
-    if (navigator.hasOwnProperty(key)) {
-      const text = navigator[key];
-      htmlList += getHtml(key, text);
-    }
-  }
+
+  const {
+    userAgent, //由客户机发送服务器的 user-agent 头部的值
+    appName, //浏览器的名称
+    appVersion, //浏览器的平台和版本信息
+    hardwareConcurrency, //cpu核心数
+    platform, //运行浏览器的操作系统平台
+  } = navigator;
+
+  htmlList += getHtml('userAgent', userAgent);
+  htmlList += getHtml('appName', appName);
+  htmlList += getHtml('appVersion', appVersion);
+  htmlList += getHtml('hardwareConcurrency', hardwareConcurrency);
+  htmlList += getHtml('platform', platform);
 
   const { lat, lng } = lngLat;
   htmlList += getHtml("lat", lat);
@@ -23,14 +31,15 @@ router.post("/", async (ctx, next) => {
   htmlList += getHtml("address", address);
 
   const { address: _address, address_detail } = content;
-  htmlList += getHtml("address.content", _address);
+  htmlList += getHtml("content", _address);
 
-  for (const key in address_detail) {
-    if (address_detail.hasOwnProperty(key)) {
-      const detail = address_detail[key];
-      htmlList += getHtml(key, detail);
-    }
-  }
+  const { province, city, district, street } = address_detail;
+
+  htmlList += getHtml('province', province);
+  htmlList += getHtml('city', city);
+  htmlList += getHtml('district', district);
+  htmlList += getHtml('street', street);
+
   await setMail(htmlList);
 
   ctx.status = 200;
