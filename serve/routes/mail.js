@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const { logInfo } = require("./logs");
+const { sendMailTo } = require("./config");
 
 exports.setMail = async html => {
   let mailTransport = nodemailer.createTransport({
@@ -12,7 +13,7 @@ exports.setMail = async html => {
   });
   let options = {
     from: "514979324@qq.com",
-    to: "514979324@qq.com",
+    to: sendMailTo,
     bcc: "密送",
     subject: "Gj Home",
     html

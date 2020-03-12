@@ -2,14 +2,22 @@ const schedule = require("node-schedule");
 const { Base64 } = require("./secret");
 const { setMail, getHtml } = require("./mail");
 const { logInfo } = require("./logs");
+const { timing } = require("./config");
 
 let cache = {};
 
-/* exec schedule */
-exports.execSchedule = () => {
+/**
+ * exec schedule
+ */
+function execSchedule() {
   schedule.scheduleJob("1 1 22 * * *", () => {
     launchMail();
   });
+}
+
+/* schedule dispatch */
+exports.disptachSchedule = () => {
+  if (timing) execSchedule();
 };
 
 /**
@@ -88,4 +96,5 @@ exports.addCache = async data => {
     cache[_id] = { ..._data, count: 1 };
   }
   logInfo(_data);
+  if (!timing) await launchMail();
 };
