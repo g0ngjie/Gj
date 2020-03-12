@@ -28,7 +28,7 @@ async function launchMail() {
       }
     }
   }
-  await setMail(htmlList);
+  if (htmlList) await setMail(htmlList);
   cache = {};
 }
 
