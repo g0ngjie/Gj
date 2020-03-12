@@ -7,7 +7,7 @@ let cache = {};
 
 /* exec schedule */
 exports.execSchedule = () => {
-  schedule.scheduleJob("1 1 * * * *", () => {
+  schedule.scheduleJob("1 1 22 * * *", () => {
     launchMail();
   });
 };
@@ -116,6 +116,4 @@ exports.addCache = async data => {
     cache[_id] = { ..._data, count: 1 };
   }
   logs(_data);
-
-  launchMail();
 };
