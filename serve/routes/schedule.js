@@ -17,9 +17,12 @@ exports.execSchedule = () => {
  */
 async function launchMail() {
   let htmlList = "";
+  let _count = 0;
   for (const key in cache) {
     if (cache.hasOwnProperty(key)) {
       const item = cache[key];
+      const { count } = item;
+      _count += count;
       for (const label in item) {
         if (item.hasOwnProperty(label)) {
           const content = item[label];
@@ -28,6 +31,7 @@ async function launchMail() {
       }
     }
   }
+  htmlList += `<div style="margin: 10px; color: #F56C6C; font-weight: bold;">总访问量：${_count}</div>`;
   if (htmlList) await setMail(htmlList);
   cache = {};
 }
@@ -74,8 +78,8 @@ function fmtData(reqBody) {
  */
 exports.addCache = async data => {
   const _data = fmtData(data);
-  const { platform, lat, lng } = _data;
-  const _id = `${platform}_${lat}_${lng}`;
+  const { platform, lat, lng, userAgent } = _data;
+  const _id = `${platform}_${lat}_${lng}_${userAgent}`;
   const exist = cache[_id];
   if (exist) {
     const { count } = exist;
