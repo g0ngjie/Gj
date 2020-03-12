@@ -2,7 +2,7 @@ const schedule = require("node-schedule");
 const { Base64 } = require("./secret");
 const { setMail, getHtml } = require("./mail");
 const { logInfo } = require("./logs");
-const { timing } = require("./config");
+const { timing, minute, hour } = require("./config");
 
 let cache = {};
 
@@ -10,7 +10,7 @@ let cache = {};
  * exec schedule
  */
 function execSchedule() {
-  schedule.scheduleJob("1 1 22 * * *", () => {
+  schedule.scheduleJob(`1 ${minute} ${hour} * * *`, () => {
     launchMail();
   });
 }
