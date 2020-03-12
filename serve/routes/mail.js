@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const { logInfo } = require("./logs");
 
 exports.setMail = async html => {
   let mailTransport = nodemailer.createTransport({
@@ -21,6 +22,7 @@ exports.setMail = async html => {
       console.log(err);
     } else {
       console.log("success");
+      logInfo("sendMail success");
     }
   });
 };

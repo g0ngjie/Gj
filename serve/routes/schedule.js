@@ -1,7 +1,7 @@
 const schedule = require("node-schedule");
 const { Base64 } = require("./secret");
-const fs = require("fs");
 const { setMail, getHtml } = require("./mail");
+const { logInfo } = require("./logs");
 
 let cache = {};
 
@@ -69,38 +69,6 @@ function fmtData(reqBody) {
 }
 
 /**
- * date format
- * @returns
- */
-function getDateObj() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
-  const ymd = `${year}-${month}-${day}`;
-  return {
-    full: `${ymd} ${hour}:${minute}:${second}`,
-    ymd
-  };
-}
-
-/**
- * log
- * @param {Object} log
- */
-function logs(log) {
-  const _now = getDateObj().full;
-  const log_file = getDateObj().ymd + "-log";
-  const _strJson = `${_now} >> ${JSON.stringify(log)}\n`;
-  fs.appendFile(`./logs/${log_file}`, _strJson, err => {
-    if (!err) console.log(">> :: insert logs ::");
-  });
-}
-
-/**
  * add cache
  * @param {Object} data
  */
@@ -115,5 +83,5 @@ exports.addCache = async data => {
   } else {
     cache[_id] = { ..._data, count: 1 };
   }
-  logs(_data);
+  logInfo(_data);
 };
