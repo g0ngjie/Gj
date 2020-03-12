@@ -7,6 +7,8 @@ const logger = require('koa-logger')
 const cors = require("koa2-cors");
 
 const index = require('./routes/index')
+const { execSchedule } = require("./routes/schedule")
+execSchedule();
 
 // error handler
 onerror(app)
