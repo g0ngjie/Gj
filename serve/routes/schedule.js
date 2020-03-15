@@ -39,8 +39,10 @@ async function launchMail() {
       }
     }
   }
-  htmlList += `<div style="margin: 10px; color: #F56C6C; font-weight: bold;">总访问量：${_count}</div>`;
-  if (htmlList) await setMail(htmlList);
+  if (htmlList) {
+    htmlList += `<div style="margin: 10px; color: #F56C6C; font-weight: bold;">总访问量：${_count}</div>`;
+    await setMail(htmlList);
+  }
   cache = {};
 }
 
