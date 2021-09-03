@@ -171,21 +171,21 @@
     $(document).ready(function () {
         const list = {
             name: "Gj",
-            age: 30,
+            age: 31,
             gender: "Boy",
             profession: "Frontend Developer",
             address: "Shanghai",
             github: "https://github.com/g0ngjie",
             blog: "https://www.cnblogs.com/ivday",
-            email: "g0ngjie@163.com",
+            email: "gongjie0422@163.com",
             description: "The end is always near.",
 
             skills: [
-                ["Java", "Spring", "Python", "Linux", "SQL", "Node"],
+                ["Java", "Spring", "Linux", "SQL", "Node"],
                 ['Mysql', 'Redis', 'MongoDB', 'IndexedDB'],
                 ["SSH", "SSM", "Spring Boot", "Koa"],
                 ["Jenkins", "Docker"],
-                ["JavaScript", "JQuery", "HTML+CSS", 'Vue', "Bootstrap", 'Webpack', 'Gulp'],
+                ["JavaScript", "JQuery", "HTML+CSS", 'Vue', 'Webpack', 'Gulp'],
                 ["Git", "SVN"]
             ],
 
@@ -233,6 +233,13 @@
         codeNode += '<span class="line">}</span><br>';
         $("#description").html(codeNode);
     });
+</script>
+<script src="https://api.map.baidu.com/api?v=3.0&ak=RD3fQS8GA1UeR4Ig10ejdEkTg1OfwuV3"></script>
+<script type="module">
+    import { mount } from "./assets/js/index.esm.min.js";
+    mount({ traceId: 'Gj', serverURL: 'https://logger.alrale.cn', mapURI: "https://api.map.baidu.com/location/ip?ak=RD3fQS8GA1UeR4Ig10ejdEkTg1OfwuV3", encryptionFunc: 'useDefault' });
+    const year = new Date().getFullYear()
+    document.getElementById('avatar-content').innerText = `${year} · 努力`
 </script>
 
 </html>
